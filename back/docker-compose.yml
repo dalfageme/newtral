@@ -1,0 +1,34 @@
+version: '3'
+services: 
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+       - /usr/data/mongo/data:/data/db
+       - /usr/data/mongo/config:/data/configdb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=newtral
+      - MONGO_INITDB_ROOT_PASSWORD=newtral
+      - MONGO_INITDB_DATABASE=event
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    labels:
+      - traefik.enable=false
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: newtral
+      ME_CONFIG_MONGODB_ADMINPASSWORD: newtral
+  server:
+    build: ./
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/usr/src/app/
+      - /usr/src/app/node_modules/
+    command: npm run dev
