@@ -12,10 +12,6 @@ const talkSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  type: {
-    type: String,
-    enum: ['deadline', 'fix', 'talk', 'scheduleItem', 'other']
-  },
   assignees: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'user',
