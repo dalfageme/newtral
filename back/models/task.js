@@ -26,11 +26,6 @@ const talkSchema = new mongoose.Schema({
   tags: [String],
 }, schemaOptions);
 
-talkSchema.virtual('isScheduleItem')
-  .get(function() {
-    return this.format === 'scheduleItem'
-  });
+const talkModel = mongoose.model('talk', talkSchema);
 
-const Talk = mongoose.model('Talk', talkSchema);
-
-module.exports = talkSchema;
+module.exports = talkModel;
