@@ -20,7 +20,7 @@ const talkSchema = new mongoose.Schema({
   start: Date,
   end: Date,
   tags: [String],
-}, schemaOptions);
+});
 
 const talkModel = mongoose.model('talk', talkSchema);
 

@@ -1,29 +1,61 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import env from '../env.js';
 
-export default function(){
-  return <div className="w-full max-w-xs">
-  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+export default function() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async () => {
+    fetch(env.baseUrl + 'api/users/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email, password
+      }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      setError(data.error);
+    })
+    .catch((status) => {
+      console.warn(status);
+    })
+  };
+
+  return <div className="justify-center flex p-5 min-h-screen items-center flex-row">
+  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-auto">
     <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-        Username
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+        Email
       </label>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+      <input value={email} onChange={(e) => setEmail(e.target.value)} 
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username" type="text" placeholder="email"
+      />
     </div>
     <div className="mb-6">
-      <label className="block text-gray-700 text-sm font-bold mb-2" for="password">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
         Password
       </label>
-      <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
-      <p className="text-red-500 text-xs italic">Please choose a password.</p>
+      <input value={password} onChange={(e) => setPassword(e.target.value)} 
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+        id="password" type="password" placeholder="******************"
+      />
+      { error && 
+        <div class="p-2 bg-red-800 items-center text-red-100 leading-none rounded-full flex lg:inline-flex" role="alert">
+          <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">error</span>
+          <span class="font-semibold mr-2 text-left flex-auto">{ error }</span>
+        </div>
+      }
     </div>
     <div className="flex items-center justify-between">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+      <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="button">
         Sign In
       </button>
-      <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-        Forgot Password?
-      </a>
     </div>
   </form>
 </div>
