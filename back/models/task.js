@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const talkSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
     minlength: 2,
     maxlength: 400,
@@ -22,6 +22,6 @@ const talkSchema = new mongoose.Schema({
   tags: [String],
 });
 
-const talkModel = mongoose.model('talk', talkSchema);
+const taskModel = mongoose.model('task', taskSchema);
 
-module.exports = talkModel;
+module.exports = taskModel;

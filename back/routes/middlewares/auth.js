@@ -19,10 +19,9 @@ async function validToken(req, res, next){
 
 }
 
-
 function isAdmin(req, res, next){ 
   if (req.headers.user.role !== 'admin') {
-    res.status(401).send({error: 'not enought permisions'});
+    return res.status(401).send({error: 'not enought permisions'});
   }
   next();
 }

@@ -28,12 +28,13 @@ async function saveTask(req, res) {
       task = await taskModel.updateOne({_id: taskBody._id}, taskBody);
     } else {
       task = new taskModel(taskBody);
-      await taskModel.validate();
-      await taskModel.save();
+      await task.validate();
+      await task.save();
     }
-    res.status(201).send(task);
+    return res.status(200).send(task);
   } catch(err) {
-    res.status(400).send({ message: 'cannot save task'});
+    console.log(err);
+    return res.status(400).send({ message: 'cannot save task'});
   }
 }
 

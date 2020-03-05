@@ -8,14 +8,16 @@ import {
 import './App.css';
 
 import Login from './pages/login.jsx'
+import Home from './pages/home';
 
 function App() {
   return <Router>
    <Switch>
       <Route path="/login">
-        <Login />
+        <Login/>
       </Route>
       <Route path="/">
+        <Home/>
       </Route>
     </Switch>
   </Router>
