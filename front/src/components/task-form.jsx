@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import moment from 'moment';
 import Select from 'react-select';
+
 import tasksService from '../services/tasks';
 
 
@@ -16,6 +18,7 @@ function TaskForm({inputTask, onSave, selectedDate, users}) {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     const savedTask = await tasksService.saveTask({...task, assignees: assignees.map(a => a.value) });
+    toast.success("Tarea guardada correctamente");
     onSave(savedTask);
     setTask(savedTask);
   }

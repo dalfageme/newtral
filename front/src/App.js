@@ -5,6 +5,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './App.css';
 
 import Login from './pages/login.jsx'
@@ -18,7 +21,8 @@ function App() {
   return <Router>
   <>
     <Navbar/>
-   <Switch>
+    <ToastContainer />
+    <Switch>
       <Route path="/login">
         <Login/>
       </Route>
