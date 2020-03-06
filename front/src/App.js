@@ -12,8 +12,12 @@ import Home from './pages/home';
 import Users from './pages/users';
 import User from './pages/user';
 
+import Navbar from './components/navbar.jsx';
+
 function App() {
   return <Router>
+  <>
+    <Navbar/>
    <Switch>
       <Route path="/login">
         <Login/>
@@ -28,6 +32,7 @@ function App() {
         <Home/>
       </Route>
     </Switch>
+    </>
   </Router>
 }
 

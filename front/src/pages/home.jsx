@@ -29,7 +29,7 @@ function Home() {
 
   
   return <div className="grid grid-cols-5 gap-4">
-    <div className="col-span-3">
+    <div className="col-span-3 p-2">
       <FullCalendar 
         defaultView="dayGridMonth"
         plugins={[ dayGridPlugin, interactionPlugin, momentPlugin, timeGridPlugin ]}

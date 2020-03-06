@@ -7,8 +7,8 @@ import tasksService from '../services/tasks';
 function TaskForm({inputTask, onSave, selectedDate, users}) {
 
   const [task, setTask] = useState({
-    title: 'tetetetteete',
-    description: 'data',
+    title: '',
+    description: '',
     start: new Date()
   });
   const [ assignees, setAssignees] = useState([]);
