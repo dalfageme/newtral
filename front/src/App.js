@@ -10,12 +10,16 @@ import './App.css';
 import Login from './pages/login.jsx'
 import Home from './pages/home';
 import Users from './pages/users';
+import User from './pages/user';
 
 function App() {
   return <Router>
    <Switch>
       <Route path="/login">
         <Login/>
+      </Route>
+      <Route path="/users/:id">
+        <User/>
       </Route>
       <Route path="/users">
         <Users/>

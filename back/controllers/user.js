@@ -1,4 +1,6 @@
 const userModel = require('../models/user');
+const taskModel = require('../models/task');
+const mongoose = require('mongoose');
 
 async function login(req, res){
   let email = req.body.email;
@@ -45,8 +47,17 @@ async function getUsers(req, res) {
   res.status(200).send(users);
 }
 
+async function getUser(req, res) {
+  const user = await userModel.findOne({_id: req.params.id}, 'email username');
+  const tasks = await taskModel.find({assignees: mongoose.Types.ObjectId(req.params.id) });
+  res.status(200).send({...user.toJSON(), tasks});
+}
+
+
+
 module.exports = {
   login,
   register,
   getUsers,
+  getUser,
 }
