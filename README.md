@@ -3,7 +3,7 @@
 ## iniciar docker
 
 ```sh
-docker-compose -f "back/docker-compose.yml" up -d --build
+docker-compose -f back/docker-compose.yml up -d --build
 ```
 
 ## iniciar proyecto react
