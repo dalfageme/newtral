@@ -40,7 +40,13 @@ async function register(req, res) {
   res.status(200).send(inserteduser);
 }
 
+async function getUsers(req, res) {
+  const users = await userModel.find({}, 'email username');
+  res.status(200).send(users);
+}
+
 module.exports = {
   login,
-  register
+  register,
+  getUsers,
 }

@@ -9,12 +9,16 @@ import './App.css';
 
 import Login from './pages/login.jsx'
 import Home from './pages/home';
+import Users from './pages/users';
 
 function App() {
   return <Router>
    <Switch>
       <Route path="/login">
         <Login/>
+      </Route>
+      <Route path="/users">
+        <Users/>
       </Route>
       <Route path="/">
         <Home/>
