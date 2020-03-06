@@ -21,8 +21,8 @@ function Home() {
     (async () => {
       // @TODO use promise all
       const tasksResp = await tasksService.getTasks();
-      const usersResp = await usersService.getUsers();
       setTasks(tasksResp);
+      const usersResp = await usersService.getUsers();
       setUsers(usersResp);
     })()
   }, [])

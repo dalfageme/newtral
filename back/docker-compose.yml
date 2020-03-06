@@ -3,9 +3,6 @@ services:
   mongo:
     image: mongo
     restart: always
-    volumes:
-       - /usr/data/mongo/data:/data/db
-       - /usr/data/mongo/config:/data/configdb
     environment:
       - MONGO_INITDB_ROOT_USERNAME=newtral
       - MONGO_INITDB_ROOT_PASSWORD=newtral
