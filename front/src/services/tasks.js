@@ -7,7 +7,9 @@ export default {
       console.log(resp)
       return resp.data.map(task => ({
         title: task.title,
+        description: task.description,
         date: task.start,
+        _id: task._id
       }));
     }catch(err){
       return [];

@@ -25,7 +25,8 @@ async function saveTask(req, res) {
   let task;
   try {
     if (taskBody._id) {
-      task = await taskModel.updateOne({_id: taskBody._id}, taskBody);
+      await taskModel.updateOne({_id: taskBody._id}, taskBody);
+      task = await taskModel.findById(taskBody._id);
     } else {
       task = new taskModel(taskBody);
       await task.validate();

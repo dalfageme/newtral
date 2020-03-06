@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import tasksService from '../services/tasks';
 
-function TaskForm() {
+function TaskForm({inputTask, onSave, selectedDate}) {
+
   const [task, setTask] = useState({
-    title: 'test',
+    title: 'tetetetteete',
     description: 'data',
     start: new Date()
   });
@@ -12,6 +13,7 @@ function TaskForm() {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     const savedTask = await tasksService.saveTask(task);
+    onSave(savedTask);
     setTask(savedTask);
   }
 
@@ -21,6 +23,17 @@ function TaskForm() {
       [event.target.name]: event.target.value
     });
   }
+
+  useEffect(()=> {
+    if(inputTask){
+      console.log('dasdas');
+      setTask({...inputTask});
+    }
+  },[])
+
+  useEffect(()=> {
+    setTask({...inputTask});
+  }, [inputTask])
 
   return <form onSubmit={handleSubmit}>
     <div className="mb-4">
@@ -39,6 +52,14 @@ function TaskForm() {
         name="description" id="description" onChange={handleChange} value={task.description}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       ></textarea>
+    </div>
+    <div className="mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+        Fecha:
+      </label>
+      <input type="text" name="title" id="title" onChange={handleChange} value={moment(selectedDate || task.date).format()} disabled
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
     </div>
     <div className="mb-4">
       <input type="submit" value="Save"
