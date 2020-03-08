@@ -1,10 +1,10 @@
 import axios from './axios';
+import moment from 'moment';
 
 export default {
   getTasks: async () => {
     try{
       const resp = await axios.get('/tasks/');
-      console.log(resp)
       return resp.data.map(task => ({
         title: task.title,
         description: task.description,
