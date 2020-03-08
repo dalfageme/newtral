@@ -6,31 +6,43 @@ import auth from '../services/auth.js';
 export default function() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [logged, setLogged] = useState(false);
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    const result = await auth.login(email, password);
-    setLogged(result.logged);
-    setError(result.error);
+    const user = await auth.register({email, password, username});
+    if (user) {
+      const result = await auth.login(email, password)
+      setLogged(result.logged);
+    }
   };
 
   if(logged) {
     return <Redirect to=""/>  
   }
 
-  return <div className="justify-center flex p-5 min-h-screen items-center flex-row">
-  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-auto" onSubmit={handleSubmit}>
+  return <div className="justify-center flex p-5 min-h-screen items-center flex-row" onSubmit={handleSubmit}>
+  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-auto">
     <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
         Email
       </label>
       <input value={email} onChange={(e) => setEmail(e.target.value)} 
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id="username" type="email" placeholder="email" required
+        id="email" type="email" placeholder="email" required
       />
     </div>
-    <div className="mb-6">
+    <div className="mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+        Username
+      </label>
+      <input value={username} onChange={(e) => setUsername(e.target.value)} 
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username" placeholder="username" required type="text"
+      />
+    </div>
+    <div className="mb-4">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
         Password
       </label>
@@ -45,13 +57,12 @@ export default function() {
         </div>
       }
     </div>
-
     <div className="flex items-center justify-between">
-      <Link to="/register" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mr-2 text-center">
-        Register
+      <Link to="/login" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mr-2 text-center">
+        Login
       </Link>
       <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="submit">
-        Sign In
+        Register
       </button>
     </div>
   </form>

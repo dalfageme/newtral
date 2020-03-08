@@ -51,6 +51,7 @@ function Home() {
             title: ev.event.title,
             description: ev.event.extendedProps.description,
             assignees: ev.event.extendedProps.assignees,
+            start: ev.event.start,
             _id: ev.event.extendedProps._id,
           });
           setViewMode('viewTask');
@@ -76,6 +77,7 @@ function Home() {
           <TaskForm task={{...currentTask, t: 'test'}} users={users} 
             onSave={updatedTask => {
               const oldTasks = tasks.filter(t => t._id !== updatedTask._id );
+              setCurrentTask(updatedTask)
               setTasks([...oldTasks, updatedTask])
             }}
             onCancel={() => setViewMode('list')}

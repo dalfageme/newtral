@@ -8,12 +8,11 @@ import tasksService from '../services/tasks';
 
 function TaskForm({task: inputTask, onSave, selectedDate, users, onCancel}) {
 
-  const [assignees, setAssignees] = useState([]);
   const [task, setTask] = useState({});
   
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    const savedTask = await tasksService.saveTask({...task, assignees: assignees.map(a => a.value) });
+    const savedTask = await tasksService.saveTask({...task, assignees: task.assignees.map(a => a.value) });
     toast.success("Tarea guardada correctamente");
     onSave(savedTask);
   }
@@ -30,6 +29,7 @@ function TaskForm({task: inputTask, onSave, selectedDate, users, onCancel}) {
   }, []);
 
   useEffect(() => {
+    console.log(selectedDate);
     setTask({...task, start: selectedDate});
   }, [selectedDate]);
 

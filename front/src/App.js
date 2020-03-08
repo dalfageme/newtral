@@ -16,6 +16,7 @@ import Users from './pages/users';
 import User from './pages/user';
 
 import Navbar from './components/navbar.jsx';
+import Register from './pages/register';
 
 function App() {
   return <Router>
@@ -25,6 +26,9 @@ function App() {
     <Switch>
       <Route path="/login">
         <Login/>
+      </Route>
+      <Route path="/register">
+        <Register/>
       </Route>
       <Route path="/users/:id">
         <User/>

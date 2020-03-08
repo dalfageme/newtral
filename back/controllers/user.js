@@ -8,12 +8,7 @@ async function login(req, res){
 
   let user = await userModel.findOne({email: email});
   if(!user){
-    //@TODO this is just temporal a fix
-    user = await userModel.create({
-      email: email,
-      password: password,
-      username: email.split('@')[0]
-    });
+    return res.status(500).send();
   }
 
   let okPassword = await user.comparePassword(password);

@@ -16,4 +16,11 @@ export default {
       };
     }
   },
+  register: async (user) => {
+    try{
+      return axios.post('/users/register', user);
+    }catch(err){
+      return undefined;;
+    }
+  }
 }
