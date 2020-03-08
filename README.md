@@ -15,4 +15,3 @@ npm install
 npm start
 ```
 - se abrirá una ventana del navegador http://localhost:3001
-- al introducir email y contraseña, si no existe el usuario se creará uno automáticamente y se hará login
