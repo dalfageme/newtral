@@ -2,7 +2,7 @@ const taskModel = require('../models/task');
 
 async function getTasks(req, res) {
   try {
-    const tasks = await taskModel.find();
+    const tasks = await taskModel.find().populate('assignees').exec();
     res.status(200).send(tasks);
   } catch(err) {
     res.status(500).send({ message: 'unexpected error' });
@@ -26,12 +26,12 @@ async function saveTask(req, res) {
   try {
     if (taskBody._id) {
       await taskModel.updateOne({_id: taskBody._id}, taskBody);
-      task = await taskModel.findById(taskBody._id);
     } else {
       task = new taskModel(taskBody);
       await task.validate();
       await task.save();
     }
+    task = await taskModel.findById(taskBody._id).populate('assignees');
     return res.status(200).send(task);
   } catch(err) {
     console.log(err);

@@ -9,7 +9,8 @@ export default {
         title: task.title,
         description: task.description,
         date: task.start,
-        _id: task._id
+        _id: task._id,
+        assignees: task.assignees
       }));
     }catch(err){
       return [];

@@ -47,19 +47,21 @@ function Home() {
           }
         }}
         eventClick={(ev) => {
-          setViewMode('viewTask');
           setCurrentTask({
             title: ev.event.title,
             description: ev.event.extendedProps.description,
+            assignees: ev.event.extendedProps.assignees,
             _id: ev.event.extendedProps._id,
-          })
+          });
+          setViewMode('viewTask');
+
         }}
       />
     </div>
     <div className="col-span-2 grid grid-rows-1 gap-4">
       <div className="row-span-1 bg-gray-300 p-4">
         { viewMode === 'create' && 
-          <TaskForm inputTask={currentTask}
+          <TaskForm
             onSave={(task) => {setTasks([...tasks, task])}} users={users}
             selectedDate={selectedDate}
             onCancel={() => setViewMode('list')}
@@ -71,7 +73,7 @@ function Home() {
           />
         }
         { viewMode === 'viewTask' &&
-          <TaskForm task={currentTask} users={users} 
+          <TaskForm task={{...currentTask, t: 'test'}} users={users} 
             onSave={updatedTask => {
               const oldTasks = tasks.filter(t => t._id !== updatedTask._id );
               setTasks([...oldTasks, updatedTask])

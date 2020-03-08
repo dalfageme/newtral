@@ -33,6 +33,13 @@ function TaskForm({task: inputTask, onSave, selectedDate, users, onCancel}) {
     setTask({...task, start: selectedDate});
   }, [selectedDate]);
 
+  useEffect(() => {
+    setTask({
+      ...inputTask,
+      assignees: inputTask.assignees.map((a) => ({label: a.username, value: a._id})),
+    });
+  }, [inputTask]);
+
   return <form onSubmit={handleSubmit}>
     <div className="mb-4">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -55,8 +62,12 @@ function TaskForm({task: inputTask, onSave, selectedDate, users, onCancel}) {
       <label className="block text-gray-700 text-sm font-bold mb-2">
         Assignees:
       </label>
-      <Select options={users.map( u => ( {label: u.username, value: u._id}) )} isMulti={true} onChange={e=> setAssignees(e)}/>
-      
+      <Select 
+        options={users.map( u => ( {label: u.username, value: u._id}) )}
+        isMulti={true}
+        value={task.assignees}
+        onChange={e => setTask({...task, assignees: e})}
+      />
     </div>
     <div className="mb-4">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
@@ -73,7 +84,6 @@ function TaskForm({task: inputTask, onSave, selectedDate, users, onCancel}) {
         >
           Cancel
         </button>
-
       }
       <input type="submit" value="Save"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline float-right"
